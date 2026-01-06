@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.davinatw'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testImplementation platform('org.junit:junit-bom:5.10.0')
+//    testImplementation 'org.junit.jupiter:junit-jupiter'
+//    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //    JUnit 4
+    testImplementation 'junit:junit:4.13.2'
+
+    // Cucumber
+    implementation 'io.cucumber:cucumber-java:7.20.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.20.1'
+
+    // Selenium UI automation
+    implementation 'org.seleniumhq.selenium:selenium-java:4.29.0'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:6.2.0'
+
+    // RestAssured API automation (IMPORTANT)
+    testImplementation 'io.rest-assured:rest-assured:5.5.6'
+    testImplementation 'io.rest-assured:json-path:5.5.6'
+    testImplementation 'io.rest-assured:json-schema-validator:5.5.6'
+
+    // Assertions
+    testImplementation 'org.assertj:assertj-core:3.24.0'
+
+    testImplementation group: 'org.json', name: 'json', version: '20231013'
+}
+
+test {
+    useJUnit()
+}
+
+
+configurations{
+    cucumberRuntime{
+        extendsFrom testImplementation
+    }
+}
+
+def tags    = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+
+tasks.register('cucumber', JavaExec) {
+    description = 'Test Web'
+    dependsOn 'testClasses'
+
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass.set('io.cucumber.core.cli.Main')
+
+    args = [
+            '--plugin', 'pretty',
+            '--plugin', 'html:reports/web-report.html',
+            '--plugin', 'json:reports/web-report.json',
+            '--glue', 'org.davinatw/WebUITest',
+            '--tags', tags,
+            'src/test/resources/Web'
+    ]
+}
+
+
+tasks.register('api', JavaExec) {
+    description = 'Test API'
+    dependsOn 'testClasses'
+
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass.set('io.cucumber.core.cli.Main')
+
+    args = [
+            '--plugin', 'pretty',
+            '--plugin', 'html:reports/api/api-report.html',
+            '--plugin', 'json:reports/api/api-report.json',
+            '--glue', 'org.davinatw/apiTest',
+            '--tags', tags,
+            'src/test/resources/API'
+    ]
+}
