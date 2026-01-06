@@ -60,7 +60,7 @@ tasks.register('cucumber', JavaExec) {
             '--plugin', 'pretty',
             '--plugin', 'html:reports/web-report.html',
             '--plugin', 'json:reports/web-report.json',
-            '--glue', 'org.davinatw/WebUITest',
+            '--glue', 'org.davinatw.WebUITest',
             '--tags', tags,
             'src/test/resources/Web'
     ]
@@ -78,7 +78,7 @@ tasks.register('api', JavaExec) {
             '--plugin', 'pretty',
             '--plugin', 'html:reports/api/api-report.html',
             '--plugin', 'json:reports/api/api-report.json',
-            '--glue', 'org.davinatw/apiTest',
+            '--glue', 'org.davinatw.apiTest',
             '--tags', tags,
             'src/test/resources/API'
     ]
