@@ -112,6 +112,7 @@ Berfungsi sebagai test runner utama Cucumber untuk menjalankan pengujian Web UI 
 
 ## Hasil Report Test
 ### API
+<img width="1710" height="1107" alt="Screenshot 2026-01-12 at 14 04 22" src="https://github.com/user-attachments/assets/bdf3cea0-f8c0-406d-86ac-9dbd2c624083" />
 
 ### Web
 <img width="1710" height="1107" alt="Screenshot 2026-01-06 at 13 25 43" src="https://github.com/user-attachments/assets/e0ddaa09-7225-48cb-82e3-c735b037b3d1" />
