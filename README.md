@@ -1,7 +1,7 @@
 ## Deskripsi
 Project ini merupakan automation testing framework untuk pengujian API dan Web UI.
 Pengujian Web UI dilakukan pada website https://www.saucedemo.com/ dengan fokus pada fitur Login, Logout, Filter, Cart dan Checkout menggunakan Selenium dan Cucumber.
-Pengujian API dilakukan pada https://gorest.co.in/public/v2/ untuk menguji endpoint Get All Users, Get One User, Update User Status, Update All information User, Get all Post, dan Get All Comments menggunakan RestAssured dan Cucumber.
+Pengujian API dilakukan pada https://gorest.co.in/public/v2/ untuk menguji endpoint Get All Users, Get One User, Create User, Update User, Delete User, dan Get Tags menggunakan RestAssured dan Cucumber.
 Framework ini menerapkan pendekatan BDD dengan Cucumber serta menggunakan Page Object Model untuk meningkatkan keterbacaan dan maintainability kode.
 
 ---
@@ -49,10 +49,8 @@ src/
     └── resources/
         ├── API/
         │   └── jsonSchema/
-        │       ├── getAllComments.json
-        │       ├── getAllPosts.json
         │       ├── getAllUsers.json
-        │       └── getOneUser.json
+        │       └── userDetail.json
         │
         ├── api.feature
         │
@@ -114,7 +112,6 @@ Berfungsi sebagai test runner utama Cucumber untuk menjalankan pengujian Web UI 
 
 ## Hasil Report Test
 ### API
-<img width="1710" height="1107" alt="Screenshot 2026-01-06 at 13 25 53" src="https://github.com/user-attachments/assets/39945a14-f12e-4336-aa6c-bbef608437c4" />
 
 ### Web
 <img width="1710" height="1107" alt="Screenshot 2026-01-06 at 13 25 43" src="https://github.com/user-attachments/assets/e0ddaa09-7225-48cb-82e3-c735b037b3d1" />
