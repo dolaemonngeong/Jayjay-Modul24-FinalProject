@@ -1,276 +1,566 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "array",
-  "items": [
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
         },
-        "name": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
         },
-        "email": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
         },
-        "gender": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
         },
-        "status": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "title",
+            "firstName",
+            "lastName",
+            "picture"
+          ]
         }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
       ]
     },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
+    "total": {
+      "type": "integer"
     },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
+    "page": {
+      "type": "integer"
     },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
-    },
-    {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "gender",
-        "status"
-      ]
+    "limit": {
+      "type": "integer"
     }
+  },
+  "required": [
+    "data",
+    "total",
+    "page",
+    "limit"
   ]
 }

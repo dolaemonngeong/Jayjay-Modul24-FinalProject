@@ -3,26 +3,30 @@
   "type": "object",
   "properties": {
     "id": {
-      "type": "integer"
+      "type": "string"
     },
-    "name": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
       "type": "string"
     },
     "email": {
       "type": "string"
     },
-    "gender": {
+    "registerDate": {
       "type": "string"
     },
-    "status": {
+    "updatedDate": {
       "type": "string"
     }
   },
   "required": [
     "id",
-    "name",
+    "firstName",
+    "lastName",
     "email",
-    "gender",
-    "status"
+    "registerDate",
+    "updatedDate"
   ]
 }

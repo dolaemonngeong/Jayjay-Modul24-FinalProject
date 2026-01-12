@@ -6,6 +6,6 @@ import io.restassured.RestAssured;
 public class apiHooks {
     @Before("@api")
     public void setupApi() {
-        RestAssured.baseURI = "https://gorest.co.in/public/v2/";
+        RestAssured.baseURI = "https://dummyapi.io/data/v1/";
     }
 }

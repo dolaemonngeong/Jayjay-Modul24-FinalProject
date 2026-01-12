@@ -3,7 +3,6 @@ package org.davinatw.apiTest;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
@@ -13,18 +12,22 @@ import java.io.File;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+import static org.hamcrest.Matchers.*;
+
 public class apiStepDef {
     Response response;
 
-    String apiKey = "be1160c4ec0a512aa0824b51c55abc5374975884a36c0fa330418db868955231";
-//    String apiKey = "63a804408eb0cb069b57e43a");
+    String appID = "63a804408eb0cb069b57e43a";
 
     @Given("user sends GET request to get all users")
     public void sendsGetRequestAllUsers() {
         response = RestAssured
                 .given()
+                .header("app-id", appID)
+                .log().all()
                 .when()
-                .get("/users");
+                .get("/user");
 
     }
 
@@ -43,71 +46,80 @@ public class apiStepDef {
                 .body(matchesJsonSchema(schema));
     }
 
-    @Given("user sends GET request using id {int}")
-    public void sendsGetRequestUsingId(int id) {
+    @Given("user sends GET request using id {string}")
+    public void sendsGetRequestUsingId(String id) {
         response = RestAssured
                 .given()
-                .header("Authorization","Bearer " + apiKey)
+                .header("app-id", appID)
                 .when()
-                .get("/users/" + id);
-        System.out.println("ID received from Feature file: " + id);
+                .get("/user/" + id);
     }
 
-
-    @Given("user sends GET request to get all posts")
-    public void sendsGetRequestToGetAllPosts() {
-        response = RestAssured
-                .given()
-                .when()
-                .get("/posts");
-    }
-
-    @Given("user sends GET request to get all comments")
-    public void sendsGetRequestToGetAllComments() {
-        response = RestAssured
-                .given()
-                .when()
-                .get("/comments");
-    }
-
-    @Given("user sends PATCH request to update user with id {int} and status {string}")
-    public void sendsPATCHRequestStatus(int id, String status) {
-        JSONObject body = new JSONObject();
-        body.put("status", status);
-
-        response = RestAssured
-                .given()
-                .header("Authorization", "Bearer " + apiKey)
-                .header("Content-Type", "application/json")
-                .body(body.toString())
-                .patch("/users/" + id);
-//        System.out.println("Status Code: " + response.getStatusCode());
-//        System.out.println("Response Body:\n" + response.getBody().asString());
-
-    }
-
-
-
-    @Given("user sends PUT request to update all the information for user with id {int}")
-    public void sendsPUTRequest(int id) {
+    @Given("user sends POST request to create an account")
+    public void sendsPostRequestToCreateAnAccount() {
         JSONObject bodyJSON = new JSONObject();
-        bodyJSON.put("name", "Davina T W");
-        bodyJSON.put("gender", "female");
-        bodyJSON.put("email", "johndoe1@gmail.com");
-        bodyJSON.put("status", "active");
+        bodyJSON.put("firstName", "Dap");
+        bodyJSON.put("lastName", "Phin");
+        bodyJSON.put("email","dor1@yahoo.com");
+
+        response = RestAssured
+                .given()
+                .header("app-id", appID)
+                .header("Content-Type", "application/json")
+                .body(bodyJSON.toString())
+                .when()
+                .post("/user/create");
+
+    }
+
+    @Given("user sends PUT request to update all the information for user with id {string}")
+    public void sendsPUTRequest(String id) {
+        JSONObject bodyJSON = new JSONObject();
+        bodyJSON.put("firstName", "Dap");
+        bodyJSON.put("lastName", "Lee");
 
         response = RestAssured
                 .given()
                 .log().all() // This will show the EXACT URL being called in your terminal
-                .header("Authorization", "Bearer " + apiKey)
+                .header("app-id", appID)
                 .header("Content-Type", "application/json")
                 .body(bodyJSON.toString())
                 .when()
-                .put("/users/" + id);
-//        System.out.println("Status Code: " + response.getStatusCode());
-//        System.out.println("Response Body:\n" + response.getBody().asString());
+                .put("/user/" + id);
 
     }
 
+    @Given("user sends DELETE request using id {string}")
+    public void sendsDELETERequest(String id) {
+        response = RestAssured
+                .given()
+                .header("app-id", appID)
+                .when()
+                .delete("/user/" + id);
+    }
 
+    @And("response body should contain deleted user id {string}")
+    public void responseBodyShouldContainDeletedUserId(String id) {
+        String actualId = response.jsonPath().getString("id");
+        assertEquals(id, actualId);
+    }
+
+    @Given("user sends GET request to get list of tags")
+    public void sendsGetRequestAllTags() {
+        response = RestAssured
+                .given()
+                .header("app-id", appID)
+                .log().all()
+                .when()
+                .get("/tag");
+    }
+
+
+    @And("response body should contain a data array")
+    public void responseBodyShouldContainADataArray() {
+        response.then()
+                .body("data", instanceOf(List.class));
+
+
+    }
 }
