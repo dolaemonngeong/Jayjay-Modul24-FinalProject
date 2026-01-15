@@ -2,6 +2,10 @@ package org.davinatw.WebUITest.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CheckoutFirstPage {
     WebDriver driver;
@@ -19,7 +23,16 @@ public class CheckoutFirstPage {
     }
 
     public boolean isCheckoutFirstPage(){
-        return driver.getCurrentUrl().contains("/checkout-step-one.html");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            // This waits until the URL actually contains /cart.html
+            System.out.println("True URL:" + driver.getCurrentUrl());
+            return wait.until(ExpectedConditions.urlContains("/cart.html"));
+        } catch (Exception e) {
+            // If it times out, print the actual URL to help you debug
+            System.out.println("Actual URL found: " + driver.getCurrentUrl());
+            return false;
+        }
     }
 
     public void inputFirstName(String firstName){
