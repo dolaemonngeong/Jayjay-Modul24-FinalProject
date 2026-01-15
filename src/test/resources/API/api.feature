@@ -27,9 +27,9 @@ Feature: Automation REST API DummyAPI
 
   @test-positive
   Scenario: Delete a user
-    Given user sends DELETE request using id "69649b59d325b30764fdfbd2"
+    Given user sends DELETE request using id "696907ec8af2ac4ee14c208a"
     Then response status code should be 200
-    And response body should contain deleted user id "69649b59d325b30764fdfbd2"
+    And response body should contain deleted user id "696907ec8af2ac4ee14c208a"
 
 
   @test-positive

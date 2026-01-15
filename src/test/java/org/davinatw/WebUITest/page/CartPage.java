@@ -27,7 +27,7 @@ public class CartPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             // This waits until the URL actually contains /cart.html
-            System.out.println("True URL " + driver.getCurrentUrl());
+            System.out.println("True URL in cart page: " + driver.getCurrentUrl());
             return wait.until(ExpectedConditions.urlContains("/cart.html"));
         } catch (Exception e) {
             // If it times out, print the actual URL to help you debug
