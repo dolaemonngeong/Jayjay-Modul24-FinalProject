@@ -3,7 +3,10 @@ package org.davinatw.WebUITest.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class CartPage {
@@ -20,7 +23,17 @@ public class CartPage {
     }
 
     public boolean isCartPage(){
-        return driver.getCurrentUrl().contains("/cart.html");
+//        return driver.getCurrentUrl().contains("/cart.html");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            // This waits until the URL actually contains /cart.html
+            System.out.println("true url " + driver.getCurrentUrl());
+            return wait.until(ExpectedConditions.urlContains("/cart.html"));
+        } catch (Exception e) {
+            // If it times out, print the actual URL to help you debug
+            System.out.println("Actual URL found: " + driver.getCurrentUrl());
+            return false;
+        }
     }
 
     public boolean isCartEmpty() {
