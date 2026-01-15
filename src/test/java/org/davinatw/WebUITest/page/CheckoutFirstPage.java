@@ -2,6 +2,7 @@ package org.davinatw.WebUITest.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -36,8 +37,11 @@ public class CheckoutFirstPage {
     }
 
     public void inputFirstName(String firstName){
-
-        driver.findElement(firstNameInput).sendKeys(firstName);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // Wait for the field to actually appear before typing
+        WebElement firstNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first-name")));
+        firstNameField.sendKeys(firstName);
+//        driver.findElement(firstNameInput).sendKeys(firstName);
     }
 
     public void inputLastName(String lastName){

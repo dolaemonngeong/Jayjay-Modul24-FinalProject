@@ -40,9 +40,16 @@ public class CartPage {
         // Look for all cart items
 //        List<WebElement> items = driver.findElements(By.className("cart_item"));
 //        return items.isEmpty(); // Returns true if size is 0
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        // Wait until any existing cart items are gone
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("cart_item")));
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+            // 1. Wait until the shopping_cart_badge is no longer visible/present
+            // This returns true if the element disappears or is not there
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("shopping_cart_badge")));
+        } catch (Exception e) {
+            // If the badge is already gone, check the item list size as a backup
+            return driver.findElements(By.className("cart_item")).isEmpty();
+        }
     }
 
     public void removeItemFromCart(){
