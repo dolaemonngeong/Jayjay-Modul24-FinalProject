@@ -25,7 +25,7 @@ public class HomePage {
 
     private By addToCartButton = By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]");
     private By removeButton = By.xpath("//*[@id=\"remove-sauce-labs-backpack\"]");
-    By cartIcon = By.xpath("//*[@id=\"shopping_cart_container\"]/a");
+    By cartIcon1 = By.xpath("//*[@id=\"shopping_cart_container\"]/a");
     private By cartBadge = By.xpath("//*[@id=\"shopping_cart_container\"]/a/span");
 
     private By inventoryItemNames = By.cssSelector(".inventory_item_name");
@@ -124,7 +124,12 @@ public class HomePage {
     }
 
     public void clickCartIconButton(){
-        driver.findElement(cartIcon).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // Use the class name for the cart link in SauceDemo
+        By cartIcon = By.className("shopping_cart_link");
+
+        // Wait for the icon to be ready and then click
+        wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click();
     }
 
     public boolean logOutNavBarDisplayed(){

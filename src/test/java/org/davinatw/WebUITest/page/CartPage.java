@@ -31,7 +31,7 @@ public class CartPage {
             return wait.until(ExpectedConditions.urlContains("/cart.html"));
         } catch (Exception e) {
             // If it times out, print the actual URL to help you debug
-            System.out.println("Actual URL found: " + driver.getCurrentUrl());
+            System.out.println("Failed to reach Cart. Still at: " + driver.getCurrentUrl());
             return false;
         }
     }
