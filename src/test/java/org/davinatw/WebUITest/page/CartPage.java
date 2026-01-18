@@ -76,9 +76,22 @@ public class CartPage {
 //            return driver.findElements(itemLocator).isEmpty();
 //        }
 //        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
-        By itemLocator = By.xpath("//*[@id=\"item_4_title_link\"]/div");
+//        By itemLocator = By.xpath("//*[@id=\"item_4_title_link\"]/div");
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
+        try {
+            // 1. Wait until the number of cart items on the page is 0
+            // This is better than waiting for a specific ID
+            wait.until(ExpectedConditions.numberOfElementsToBe(By.className("cart_item"), 0));
+
+            // 2. Double check the red badge is gone
+            return driver.findElements(By.className("shopping_cart_badge")).isEmpty();
+        } catch (Exception e) {
+            // Fallback: If it times out, do a hard check of the list size
+            return driver.findElements(By.className("cart_item")).isEmpty();
+        }
     }
 
     public void removeItemFromCart(){
