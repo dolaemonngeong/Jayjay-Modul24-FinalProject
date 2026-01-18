@@ -41,32 +41,32 @@ public class HomePage {
 
         return driver.findElement(headerDisplay).isDisplayed();
     }
-
-    public void clickAboutNavBar(){
+//
+//    public void clickAboutNavBar(){
+////        driver.findElement(burgerMenu).click();
+////
+////        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+////
+////        wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
+////        driver.findElement(aboutNavBar).click();
+//        // 1. Click the Burger Menu
 //        driver.findElement(burgerMenu).click();
 //
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+//        // 2. Wait for the 'About' link to be visible and clickable
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement aboutLink = wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
 //
-//        wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
-//        driver.findElement(aboutNavBar).click();
-        // 1. Click the Burger Menu
-        driver.findElement(burgerMenu).click();
-
-        // 2. Wait for the 'About' link to be visible and clickable
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement aboutLink = wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
-
-        try {
-            // Try standard click first
-            aboutLink.click();
-            System.out.println("Clicked about nav bar");
-        } catch (Exception e) {
-            // If standard click fails, use JavaScript click (more powerful)
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", aboutLink);
-            System.out.println("not clicked about nav bar");
-        }
-    }
+//        try {
+//            // Try standard click first
+//            aboutLink.click();
+//            System.out.println("Clicked about nav bar");
+//        } catch (Exception e) {
+//            // If standard click fails, use JavaScript click (more powerful)
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].click();", aboutLink);
+//            System.out.println("not clicked about nav bar");
+//        }
+//    }
 
 
 

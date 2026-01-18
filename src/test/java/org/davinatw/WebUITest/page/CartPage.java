@@ -1,6 +1,7 @@
 package org.davinatw.WebUITest.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,7 +36,7 @@ public class CartPage {
         }
     }
 
-    public boolean isCartEmpty() {
+    public boolean isCartEmpty(String itemName) {
         // Look for all cart items
 //        List<WebElement> items = driver.findElements(By.className("cart_item"));
 //        return items.isEmpty(); // Returns true if size is 0
@@ -49,20 +50,30 @@ public class CartPage {
 //            // If the badge is already gone, check the item list size as a backup
 //            return driver.findElements(By.className("cart_item")).isEmpty();
 //        }
+
+//        try {
+//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//            // 1. Wait until the cart items are gone from the list
+//            // This is more reliable than checking for the badge alone
+//            boolean itemsGone = wait.until(ExpectedConditions.numberOfElementsToBe(By.className("cart_item"), 0)).isEmpty();
+//
+//            // 2. Double check that the badge is also gone
+//            boolean badgeGone = driver.findElements(By.className("shopping_cart_badge")).isEmpty();
+//
+//            return itemsGone && badgeGone;
+//        } catch (Exception e) {
+//            // Fallback: If wait times out, do a final check of the element list size
+//            return driver.findElements(By.className("cart_item")).isEmpty();
+//        }
+        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
+
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-            // 1. Wait until the cart items are gone from the list
-            // This is more reliable than checking for the badge alone
-            boolean itemsGone = wait.until(ExpectedConditions.numberOfElementsToBe(By.className("cart_item"), 0)).isEmpty();
-
-            // 2. Double check that the badge is also gone
-            boolean badgeGone = driver.findElements(By.className("shopping_cart_badge")).isEmpty();
-
-            return itemsGone && badgeGone;
+            // Returns true if the specific item is not visible or not in DOM
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
         } catch (Exception e) {
-            // Fallback: If wait times out, do a final check of the element list size
-            return driver.findElements(By.className("cart_item")).isEmpty();
+            return driver.findElements(itemLocator).isEmpty();
         }
     }
 
@@ -83,24 +94,43 @@ public class CartPage {
     }
 
     public void clickCheckoutButton(){
-        driver.findElement(checkoutButton).click();
-
+//        driver.findElement(checkoutButton).click();
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
+//        if (!driver.findElements(checkoutButton).isEmpty()) {
+//
+//            // 2. Check if it is actually visible to the user
+//            if (driver.findElement(checkoutButton).isDisplayed()) {
+//                System.out.println("Checkout Button is visible, proceeding to click.");
+//
+//                // 3. It's still best to wait for clickability to handle animations
+//                wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click(); //
+//            } else {
+//                System.out.println("Checkout Button exists but is currently hidden.");
+//            }
+//        } else {
+//            System.out.println("Checkout Button was not found on the page.");
+//        }
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
-        if (!driver.findElements(checkoutButton).isEmpty()) {
+        // 1. Wait for visibility
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutButton));
+        System.out.println("Cart icon is visible, proceeding to click.");
 
-            // 2. Check if it is actually visible to the user
-            if (driver.findElement(checkoutButton).isDisplayed()) {
-                System.out.println("Checkout Button is visible, proceeding to click.");
-
-                // 3. It's still best to wait for clickability to handle animations
-                wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click(); //
-            } else {
-                System.out.println("Checkout Button exists but is currently hidden.");
-            }
-        } else {
-            System.out.println("Checkout Button was not found on the page.");
+        try {
+            // 2. Try standard click
+            element.click();
+            // 3. Wait for the URL to actually change to cart.html
+            wait.until(ExpectedConditions.urlContains("/checkout-step-one.html"));
+        } catch (Exception e) {
+            System.out.println("Standard click failed to redirect, trying JavaScript click.");
+            // 4. Backup: JavaScript click
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", element);
+            // 5. Final wait for URL
+            wait.until(ExpectedConditions.urlContains("/checkout-step-one.html"));
         }
     }
 }

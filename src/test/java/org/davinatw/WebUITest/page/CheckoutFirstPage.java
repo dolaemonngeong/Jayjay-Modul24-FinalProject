@@ -27,11 +27,11 @@ public class CheckoutFirstPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             // This waits until the URL actually contains /cart.html
-            System.out.println("True URL in checkoutFirstPage:" + driver.getCurrentUrl());
+            System.out.println("Waiting for checkoutFirstPage URL... Current is:" + driver.getCurrentUrl());
             return wait.until(ExpectedConditions.urlContains("/checkout-step-one.html"));
         } catch (Exception e) {
             // If it times out, print the actual URL to help you debug
-            System.out.println("Actual URL found: " + driver.getCurrentUrl());
+            System.out.println("Failed to reach checkoutFirstPage. Final URL was: " + driver.getCurrentUrl());
             return false;
         }
     }
