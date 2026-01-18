@@ -78,14 +78,23 @@ public class CartPage {
     }
 
     public void removeItemFromCart(){
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//        // Find all buttons that currently say 'Remove'
+//        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
+//
+//        for (WebElement button : removeButtons) {
+//            // Use a wait for each click to handle the slight UI refresh
+//            wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+//        }
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        if (driver.findElement(removeButtonFirstItem).isDisplayed()) {
+            System.out.println("Remove Button is visible, proceeding to click.");
 
-        // Find all buttons that currently say 'Remove'
-        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
-
-        for (WebElement button : removeButtons) {
-            // Use a wait for each click to handle the slight UI refresh
-            wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+            // 3. It's still best to wait for clickability to handle animations
+            wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem)).click();
+        } else {
+            System.out.println("Remove Button can't find");
         }
     }
 
@@ -94,25 +103,7 @@ public class CartPage {
     }
 
     public void clickCheckoutButton(){
-//        driver.findElement(checkoutButton).click();
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
-//        if (!driver.findElements(checkoutButton).isEmpty()) {
-//
-//            // 2. Check if it is actually visible to the user
-//            if (driver.findElement(checkoutButton).isDisplayed()) {
-//                System.out.println("Checkout Button is visible, proceeding to click.");
-//
-//                // 3. It's still best to wait for clickability to handle animations
-//                wait.until(ExpectedConditions.elementToBeClickable(checkoutButton)).click(); //
-//            } else {
-//                System.out.println("Checkout Button exists but is currently hidden.");
-//            }
-//        } else {
-//            System.out.println("Checkout Button was not found on the page.");
-//        }
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // 1. Wait for visibility
