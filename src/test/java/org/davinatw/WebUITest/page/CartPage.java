@@ -26,12 +26,11 @@ public class CartPage {
 //        return driver.getCurrentUrl().contains("/cart.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
-            // This waits until the URL actually contains /cart.html
-            System.out.println("True URL in cart page: " + driver.getCurrentUrl());
+            // This waits for the URL to change before returning true to your assertTrue
+            System.out.println("Waiting for Cart URL... Current is: " + driver.getCurrentUrl());
             return wait.until(ExpectedConditions.urlContains("/cart.html"));
         } catch (Exception e) {
-            // If it times out, print the actual URL to help you debug
-            System.out.println("Failed to reach Cart. Still at: " + driver.getCurrentUrl());
+            System.out.println("Failed to reach Cart. Final URL was: " + driver.getCurrentUrl());
             return false;
         }
     }

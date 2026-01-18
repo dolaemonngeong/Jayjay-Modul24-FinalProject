@@ -128,20 +128,37 @@ public class HomePage {
         // Use the class name for the cart link in SauceDemo
         By cartIcon = By.className("shopping_cart_link");
 
-        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
-        if (!driver.findElements(cartIcon).isEmpty()) {
+//        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
+//        if (!driver.findElements(cartIcon).isEmpty()) {
+//
+//            // 2. Check if it is actually visible to the user
+//            if (driver.findElement(cartIcon).isDisplayed()) {
+//                System.out.println("Cart icon is visible, proceeding to click.");
+//
+//                // 3. It's still best to wait for clickability to handle animations
+//                wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click(); //
+//            } else {
+//                System.out.println("Cart icon exists but is currently hidden.");
+//            }
+//        } else {
+//            System.out.println("Cart icon was not found on the page.");
+//        }
+        // 1. Wait for visibility
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(cartIcon));
+        System.out.println("Cart icon is visible, proceeding to click.");
 
-            // 2. Check if it is actually visible to the user
-            if (driver.findElement(cartIcon).isDisplayed()) {
-                System.out.println("Cart icon is visible, proceeding to click.");
-
-                // 3. It's still best to wait for clickability to handle animations
-                wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click(); //
-            } else {
-                System.out.println("Cart icon exists but is currently hidden.");
-            }
-        } else {
-            System.out.println("Cart icon was not found on the page.");
+        try {
+            // 2. Try standard click
+            element.click();
+            // 3. Wait for the URL to actually change to cart.html
+            wait.until(ExpectedConditions.urlContains("/cart.html"));
+        } catch (Exception e) {
+            System.out.println("Standard click failed to redirect, trying JavaScript click.");
+            // 4. Backup: JavaScript click
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", element);
+            // 5. Final wait for URL
+            wait.until(ExpectedConditions.urlContains("/cart.html"));
         }
     }
 
