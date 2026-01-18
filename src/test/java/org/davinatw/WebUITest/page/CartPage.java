@@ -116,8 +116,17 @@ public class CartPage {
 //        }
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem)).click();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem));
 
+        try{
+            element.click();
+        }catch (Exception e){
+
+            System.out.println("Standard click failed to redirect, trying JavaScript click.");
+            // 4. Backup: JavaScript click
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", element);
+        }
 //        // 1. Find all active Remove buttons
 //        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
 //
