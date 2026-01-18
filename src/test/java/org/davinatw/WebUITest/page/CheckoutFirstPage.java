@@ -78,6 +78,7 @@ public class CheckoutFirstPage {
     }
 
     public boolean getErrorMessage(String errorMessage) {
+        System.out.println("Waiting for checkoutSecondPage URL... Current is:" + driver.getPageSource().contains(errorMessage));
         return driver.getPageSource().contains(errorMessage);
     }
 
