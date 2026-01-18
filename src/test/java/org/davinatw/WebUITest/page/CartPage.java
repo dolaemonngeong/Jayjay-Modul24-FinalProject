@@ -99,7 +99,7 @@ public class CartPage {
             System.out.println("cart is empty");
             return true;
         }else{
-            System.out.println("cart is not empty. w/ item: "+ items.get(0).getText() + "and size: "+ items.size());
+            System.out.println("cart is not empty. w/ item: "+ items.get(0).getText() + "\n | the item size: "+ items.size());
             return false;
         }
     }
@@ -116,25 +116,28 @@ public class CartPage {
 //        }
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem)).click();
 
-        // 1. Find all active Remove buttons
-        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
-
-        if (removeButtons.isEmpty()) {
-            System.out.println("No remove buttons found. Cart might already be empty.");
-        } else {
-            System.out.println("Found " + removeButtons.size() + " items. Proceeding to remove all.");
-
-            // 2. Loop through and click each one
-            for (WebElement button : removeButtons) {
-                try {
-                    wait.until(ExpectedConditions.elementToBeClickable(button)).click();
-                } catch (Exception e) {
-                    // Use JS click if standard click is blocked by a refresh
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
-                }
-            }
-        }
+//        // 1. Find all active Remove buttons
+//        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
+//
+//        if (removeButtons.isEmpty()) {
+//            System.out.println("No remove buttons found. Cart might already be empty.");
+//        } else {
+//            System.out.println("Found " + removeButtons.size() + " items. Proceeding to remove all.");
+//
+//            // 2. Loop through and click each one
+//            for (WebElement button : removeButtons) {
+//                try {
+//                    wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+//                    System.out.println("Removed the item not w/ js : " + button.getText());
+//                } catch (Exception e) {
+//                    // Use JS click if standard click is blocked by a refresh
+//                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+//                    System.out.println("Removed the item w/ js : " + button.getText());
+//                }
+//            }
+//        }
     }
 
     public void clickContinueShoppingButton(){
