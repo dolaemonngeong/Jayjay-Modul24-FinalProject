@@ -66,15 +66,18 @@ public class CartPage {
 //            // Fallback: If wait times out, do a final check of the element list size
 //            return driver.findElements(By.className("cart_item")).isEmpty();
 //        }
-        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
 
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            // Returns true if the specific item is not visible or not in DOM
-            return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
-        } catch (Exception e) {
-            return driver.findElements(itemLocator).isEmpty();
-        }
+//        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
+//        try {
+//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//            // Returns true if the specific item is not visible or not in DOM
+//            return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
+//        } catch (Exception e) {
+//            return driver.findElements(itemLocator).isEmpty();
+//        }
+        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
     }
 
     public void removeItemFromCart(){
@@ -87,14 +90,26 @@ public class CartPage {
 //            // Use a wait for each click to handle the slight UI refresh
 //            wait.until(ExpectedConditions.elementToBeClickable(button)).click();
 //        }
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        if (driver.findElement(removeButtonFirstItem).isDisplayed()) {
-            System.out.println("Remove Button is visible, proceeding to click.");
 
-            // 3. It's still best to wait for clickability to handle animations
-            wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem)).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1. Find all active Remove buttons
+        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[text()='Remove']"));
+
+        if (removeButtons.isEmpty()) {
+            System.out.println("No remove buttons found. Cart might already be empty.");
         } else {
-            System.out.println("Remove Button can't find");
+            System.out.println("Found " + removeButtons.size() + " items. Proceeding to remove all.");
+
+            // 2. Loop through and click each one
+            for (WebElement button : removeButtons) {
+                try {
+                    wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+                } catch (Exception e) {
+                    // Use JS click if standard click is blocked by a refresh
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+                }
+            }
         }
     }
 
