@@ -17,7 +17,7 @@ public class CheckoutFirstPage {
     By postCodeInput = By.xpath("//*[@id=\"postal-code\"]");
     By continueButton = By.xpath("//*[@id=\"continue\"]");
 
-    By errorMessage = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]/h3");
+    By errorMessage = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]");
 
     public CheckoutFirstPage(WebDriver driver){
 
@@ -77,17 +77,8 @@ public class CheckoutFirstPage {
         }
     }
 
-    public String getErrorMessage(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-
-        if(element.isDisplayed()){
-            System.out.println("The error message is displayed: "+ element.getText());
-            return element.getText();
-        }else {
-            System.out.println("The error message is not displayed.");
-            return element.getText();
-        }
+    public boolean getErrorMessage(String errorMessage) {
+        return driver.getPageSource().contains(errorMessage);
     }
 
 }

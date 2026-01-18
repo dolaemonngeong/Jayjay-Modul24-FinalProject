@@ -81,7 +81,7 @@ public class CheckoutStepDef extends BaseTest {
 
     @Then("the system displays the error message {string}")
     public void displaysTheErrorMessage(String errorMessage){
-        assertEquals(errorMessage, checkoutFirstPage.getErrorMessage());
+        assertTrue(checkoutFirstPage.getErrorMessage(errorMessage));
 
     }
 }

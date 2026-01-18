@@ -53,7 +53,7 @@ public class CartPage {
 
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(removeButtonFirstItem));
 
         try{
             element.click();
