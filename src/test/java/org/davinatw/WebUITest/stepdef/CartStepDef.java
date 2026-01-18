@@ -37,9 +37,9 @@ public class CartStepDef extends BaseTest {
         cartPage.removeItemFromCart();
     }
 
-    @Then("the cart item {string} should not be visible")
-    public void validateItemNotExist(String itemName) {
-        assertTrue(cartPage.isCartEmpty(itemName));
+    @Then("the cart item \"Sauce Labs Backpack\" should not be visible")
+    public void validateItemNotExist(){
+        assertTrue(cartPage.isCartEmpty());
     }
 
 

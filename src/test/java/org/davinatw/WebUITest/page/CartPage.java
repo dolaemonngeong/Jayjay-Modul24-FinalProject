@@ -36,7 +36,7 @@ public class CartPage {
         }
     }
 
-    public boolean isCartEmpty(String itemName) {
+    public boolean isCartEmpty() {
         // Look for all cart items
 //        List<WebElement> items = driver.findElements(By.className("cart_item"));
 //        return items.isEmpty(); // Returns true if size is 0
@@ -75,7 +75,8 @@ public class CartPage {
 //        } catch (Exception e) {
 //            return driver.findElements(itemLocator).isEmpty();
 //        }
-        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
+//        By itemLocator = By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']");
+        By itemLocator = By.xpath("//*[@id=\"item_4_title_link\"]/div");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
     }
