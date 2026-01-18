@@ -95,7 +95,13 @@ public class CartPage {
         List<WebElement> items = driver.findElements(By.className("cart_item"));
 
         // Returns true if the size is 0
-        return items.isEmpty();
+        if(items.size() == 0){
+            System.out.println("cart is empty");
+            return true;
+        }else{
+            System.out.println("cart is not empty. w/ item: "+ items.get(0).getText() + "and size: "+ items.size());
+            return false;
+        }
     }
 
     public void removeItemFromCart(){
