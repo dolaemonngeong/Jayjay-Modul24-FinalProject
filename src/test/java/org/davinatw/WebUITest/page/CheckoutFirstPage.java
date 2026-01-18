@@ -78,7 +78,13 @@ public class CheckoutFirstPage {
     }
 
     public String getErrorMessage(){
-        return driver.findElement(errorMessage).getText();
+        if(driver.findElement(errorMessage).isDisplayed()){
+            System.out.println("The error message is displayed.");
+            return driver.findElement(errorMessage).getText();
+        }else {
+            System.out.println("The error message is not displayed.");
+            return driver.findElement(errorMessage).getText();
+        }
     }
 
 }
