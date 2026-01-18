@@ -80,18 +80,22 @@ public class CartPage {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //        return wait.until(ExpectedConditions.invisibilityOfElementLocated(itemLocator));
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            // 1. Wait until the number of cart items on the page is 0
-            // This is better than waiting for a specific ID
-            wait.until(ExpectedConditions.numberOfElementsToBe(By.className("cart_item"), 0));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        try {
+//            // 1. Wait until the number of cart items on the page is 0
+//            // This is better than waiting for a specific ID
+//            wait.until(ExpectedConditions.numberOfElementsToBe(By.className("cart_item"), 0));
+//
+//            // 2. Double check the red badge is gone
+//            return driver.findElements(By.className("shopping_cart_badge")).isEmpty();
+//        } catch (Exception e) {
+//            // Fallback: If it times out, do a hard check of the list size
+//            return driver.findElements(By.className("cart_item")).isEmpty();
+//        }
+        List<WebElement> items = driver.findElements(By.className("cart_item"));
 
-            // 2. Double check the red badge is gone
-            return driver.findElements(By.className("shopping_cart_badge")).isEmpty();
-        } catch (Exception e) {
-            // Fallback: If it times out, do a hard check of the list size
-            return driver.findElements(By.className("cart_item")).isEmpty();
-        }
+        // Returns true if the size is 0
+        return items.isEmpty();
     }
 
     public void removeItemFromCart(){
