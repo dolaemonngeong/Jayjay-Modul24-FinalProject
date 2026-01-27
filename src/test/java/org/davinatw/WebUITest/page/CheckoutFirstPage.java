@@ -58,25 +58,13 @@ public class CheckoutFirstPage {
     public void clickContinueButton(){
 //        driver.findElement(continueButton).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // 1. Wait for visibility
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
-        System.out.println("Continue Button is visible, proceeding to click. + " + element.isDisplayed());
 
-        try {
-            System.out.println("try standard click");
-            // 2. Try standard click
-            element.click();
-            // 3. Wait for the URL to actually change to cart.html
-//            wait.until(ExpectedConditions.urlContains("/checkout-step-two.html"));
-        } catch (Exception e) {
-            System.out.println("Standard click failed to redirect, trying JavaScript click.");
-            // 4. Backup: JavaScript click
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", element);
-            // 5. Final wait for URL
-//            wait.until(ExpectedConditions.urlContains("/checkout-step-two.html"));
-        }
+        // Direct JS click is often safer for 'sticky' buttons in CI/Linux
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+
+        System.out.println("Executed JavaScript click on Continue button.");
     }
 
     public String getErrorMessage() {
