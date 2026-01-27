@@ -40,19 +40,33 @@ public class CheckoutFirstPage {
 
     public void inputFirstName(String firstName){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Wait for the field to actually appear before typing
-        WebElement firstNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first-name")));
-        firstNameField.sendKeys(firstName);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first-name")));
+
+        // Ensure the field is focused and empty before typing
+        element.click();
+        element.clear();
+        element.sendKeys(firstName);
 //        driver.findElement(firstNameInput).sendKeys(firstName);
     }
 
     public void inputLastName(String lastName){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("last-name")));
 
-        driver.findElement(lastNameInput).sendKeys(lastName);
+        element.click();
+        element.clear();
+        element.sendKeys(lastName);
+//        driver.findElement(lastNameInput).sendKeys(lastName);
     }
 
     public void inputPostCode(String postCode){
-        driver.findElement(postCodeInput).sendKeys(postCode);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("postal-code")));
+
+        element.click();
+        element.clear();
+        element.sendKeys(postCode);
+//        driver.findElement(postCodeInput).sendKeys(postCode);
     }
 
     public void clickContinueButton(){
@@ -60,11 +74,23 @@ public class CheckoutFirstPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
 
-        // Direct JS click is often safer for 'sticky' buttons in CI/Linux
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", element);
+        try {
+            // Attempt standard click
+            element.click();
 
-        System.out.println("Executed JavaScript click on Continue button.");
+            // IMMEDIATE CHECK: Did something happen?
+            // We check if the error message appears OR if the URL changes.
+            // If neither happens within 1 second, we assume the click failed.
+            boolean actionTriggered = wait.until(driver ->
+                    driver.getCurrentUrl().contains("checkout-step-two") ||
+                            driver.findElement(errorMessageElement).isDisplayed() // Ensure you have access to errorMessageElement here
+            );
+
+        } catch (Exception e) {
+            System.out.println("Standard click ignored. Forcing JavaScript click.");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", element);
+        }
     }
 
     public String getErrorMessage() {
