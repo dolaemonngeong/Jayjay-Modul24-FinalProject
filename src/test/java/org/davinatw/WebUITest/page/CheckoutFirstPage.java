@@ -60,7 +60,7 @@ public class CheckoutFirstPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // 1. Wait for visibility
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
         System.out.println("Continue Button is visible, proceeding to click. + " + element.isDisplayed());
 
         try {
@@ -80,9 +80,18 @@ public class CheckoutFirstPage {
     }
 
     public String getErrorMessage() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
+//        System.out.println("Waiting the error message display:" + element.getText());
+//        return element.getText();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
-        System.out.println("Waiting the error message display:" + element.getText());
+        // 1. Wait until the element is visible
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
+
+        // 2. Add a wait for the text to NOT be empty
+        wait.until(driver -> !element.getText().isEmpty());
+
+        System.out.println("Error message captured: " + element.getText());
         return element.getText();
     }
 
