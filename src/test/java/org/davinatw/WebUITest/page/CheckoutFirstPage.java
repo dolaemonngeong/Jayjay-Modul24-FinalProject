@@ -15,9 +15,10 @@ public class CheckoutFirstPage {
     By firstNameInput = By.xpath("//*[@id=\"first-name\"]");
     By lastNameInput = By.xpath("//*[@id=\"last-name\"]");
     By postCodeInput = By.xpath("//*[@id=\"postal-code\"]");
-    By continueButton = By.xpath("//*[@id=\"continue\"]");
+//    By continueButton = By.xpath("//*[@id=\"continue\"]");
+    By continueButton = By.id("continue");
 
-    By errorMessage = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]");
+    By errorMessageElement = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]");
 
     public CheckoutFirstPage(WebDriver driver){
 
@@ -60,9 +61,10 @@ public class CheckoutFirstPage {
 
         // 1. Wait for visibility
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton));
-        System.out.println("Continue Button is visible, proceeding to click.");
+        System.out.println("Continue Button is visible, proceeding to click. + " + element.isDisplayed());
 
         try {
+            System.out.println("try standard click");
             // 2. Try standard click
             element.click();
             // 3. Wait for the URL to actually change to cart.html
@@ -77,9 +79,11 @@ public class CheckoutFirstPage {
         }
     }
 
-    public boolean getErrorMessage(String errorMessage) {
-        System.out.println("Waiting for checkoutSecondPage URL... Current is:" + driver.getPageSource().contains(errorMessage));
-        return driver.getPageSource().contains(errorMessage);
+    public String getErrorMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
+        System.out.println("Waiting the error message display:" + element.getText());
+        return element.getText();
     }
 
 }

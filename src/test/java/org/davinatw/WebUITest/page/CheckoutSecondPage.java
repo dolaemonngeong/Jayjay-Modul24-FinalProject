@@ -20,6 +20,7 @@ public class CheckoutSecondPage {
     }
 
     public boolean isOnCheckoutSecondPage(){
+        System.out.println("Checking if checkout second page is displayed");
 
 //        return driver.getCurrentUrl().contains("/checkout-step-two.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
