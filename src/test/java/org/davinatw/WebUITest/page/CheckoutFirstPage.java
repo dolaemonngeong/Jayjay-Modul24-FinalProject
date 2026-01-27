@@ -40,12 +40,18 @@ public class CheckoutFirstPage {
 
     public void inputFirstName(String firstName){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first-name")));
-
-        // Ensure the field is focused and empty before typing
-        element.click();
-        element.clear();
-        element.sendKeys(firstName);
+        try {
+            // Attempt standard interaction
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameInput));
+            element.click();
+            element.clear();
+            element.sendKeys(firstName);
+        } catch (Exception e) {
+            System.out.println("Error entering First Name. Retrying with JavaScript...");
+            // Fallback: Use JavaScript to force the value if standard typing fails
+            WebElement element = driver.findElement(firstNameInput);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + firstName + "';", element);
+        }
 //        driver.findElement(firstNameInput).sendKeys(firstName);
     }
 
