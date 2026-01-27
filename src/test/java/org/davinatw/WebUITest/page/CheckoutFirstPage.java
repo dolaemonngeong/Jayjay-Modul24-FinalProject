@@ -89,7 +89,7 @@ public class CheckoutFirstPage {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
 
         // 2. Add a wait for the text to NOT be empty
-        wait.until(driver -> !element.getText().isEmpty());
+        wait.until(driver -> !element.getText().trim().isEmpty());
 
         System.out.println("Error message captured: " + element.getText());
         return element.getText();
