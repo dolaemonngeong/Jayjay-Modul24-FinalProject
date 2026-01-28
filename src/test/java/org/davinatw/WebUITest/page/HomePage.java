@@ -48,7 +48,33 @@ public class HomePage {
     }
 
     public void clickAddToCart() {
-        driver.findElement(addToCartButton).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 1. Locate the button
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+
+        try {
+            // 2. Try Standard Click
+            button.click();
+
+            // 3. VERIFICATION: Wait for the button to disappear or change
+            // This ensures we don't move to the next step until the click effectively worked.
+            // We wait for the "Add to Cart" button to become invisible OR the "Remove" button to appear.
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(addToCartButton));
+
+        } catch (Exception e) {
+            System.out.println("Standard 'Add to Cart' click failed. Retrying with JavaScript...");
+
+            // 4. Fallback: JS Click
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", driver.findElement(addToCartButton));
+
+            // 5. Wait again for the state to change
+            wait.until(ExpectedConditions.or(
+                    ExpectedConditions.invisibilityOfElementLocated(addToCartButton),
+                    ExpectedConditions.visibilityOfElementLocated(removeButton)
+            ));
+        }
     }
 
     public boolean validateRemoveButtonDisplayed() {
