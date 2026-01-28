@@ -48,7 +48,7 @@ public class CheckoutSecondPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", button);
 
-        System.out.println("Executed Forced JavaScript Click on 'Continue' button.");
+        System.out.println("Executed Forced JavaScript Click on 'Finish' button.");
 
     }
 

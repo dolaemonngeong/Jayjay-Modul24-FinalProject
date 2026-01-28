@@ -10,9 +10,6 @@ import java.time.Duration;
 public class CheckoutCompletePage {
     WebDriver driver;
 
-    By thankYouText = By.xpath("//*[@id=\"checkout_complete_container\"]/h2");
-    By backHomeButton = By.id("back-to-products");
-
     public CheckoutCompletePage(WebDriver driver){
         this.driver = driver;
     }
@@ -23,7 +20,7 @@ public class CheckoutCompletePage {
         try {
             // This waits until the URL actually contains /cart.html
             System.out.println("Waiting for checkoutCompletePage URL... Current is:" + driver.getCurrentUrl());
-            return wait.until(ExpectedConditions.urlContains("/checkout-completee.html"));
+            return wait.until(ExpectedConditions.urlContains("/checkout-complete.html"));
         } catch (Exception e) {
             // If it times out, print the actual URL to help you debug
             System.out.println("Failed to reach checkoutCompletePage. Final URL was: " + driver.getCurrentUrl());
