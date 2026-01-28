@@ -1,7 +1,9 @@
 package org.davinatw.WebUITest.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -37,7 +39,17 @@ public class CheckoutSecondPage {
     }
 
     public void clickFinishButton(){
-        driver.findElement(finishButton).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(finishButton));
+
+        // DIRECT FIX: Use JavaScript click immediately.
+        // We skip the standard click because it is silently failing in your CI environment.
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", button);
+
+        System.out.println("Executed Forced JavaScript Click on 'Continue' button.");
+
     }
 
 }
