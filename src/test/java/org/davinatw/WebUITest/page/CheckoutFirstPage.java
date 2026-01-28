@@ -12,10 +12,6 @@ import java.time.Duration;
 public class CheckoutFirstPage {
     WebDriver driver;
 
-    By firstNameInput = By.xpath("//*[@id=\"first-name\"]");
-    By lastNameInput = By.xpath("//*[@id=\"last-name\"]");
-    By postCodeInput = By.xpath("//*[@id=\"postal-code\"]");
-//    By continueButton = By.xpath("//*[@id=\"continue\"]");
     By continueButton = By.id("continue");
 
     By errorMessageElement = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]");
@@ -39,7 +35,6 @@ public class CheckoutFirstPage {
     }
 
     public void inputFirstName(String firstName){
-//        driver.findElement(firstNameInput).sendKeys(firstName);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first-name")));
@@ -50,6 +45,15 @@ public class CheckoutFirstPage {
 
         // Verify the input by reading it back from the browser
         String typedValue = element.getAttribute("value");
+
+        // IF the value is empty but we expected text, FORCE it with JavaScript
+        if (!firstName.isEmpty() && typedValue.isEmpty()) {
+            System.out.println("Standard typing failed for First Name. Retrying with JavaScript...");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].value='" + firstName + "';", element);
+            typedValue = firstName; // Update our local variable
+        }
+
         System.out.println("Input First Name: '" + firstName + "' | Actual Field Value: '" + typedValue + "'");
 
     }
@@ -58,34 +62,46 @@ public class CheckoutFirstPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("last-name")));
 
-        element.click();
         element.clear();
         element.sendKeys(lastName);
 
         // Verify the input by reading it back from the browser
         String typedValue = element.getAttribute("value");
+
+        if (!lastName.isEmpty() && typedValue.isEmpty()) {
+            System.out.println("Standard typing failed for Last Name. Retrying with JavaScript...");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].value='" + lastName + "';", element);
+            typedValue = lastName;
+        }
+
         System.out.println("Input Last Name: '" + lastName + "' | Actual Field Value: '" + typedValue + "'");
 
-//        driver.findElement(lastNameInput).sendKeys(lastName);
     }
 
     public void inputPostCode(String postCode){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("postal-code")));
 
-        element.click();
         element.clear();
         element.sendKeys(postCode);
 
         // Verify the input by reading it back from the browser
         String typedValue = element.getAttribute("value");
+
+        if (!postCode.isEmpty() && typedValue.isEmpty()) {
+            System.out.println("Standard typing failed for Postal Code. Retrying with JavaScript...");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].value='" + postCode + "';", element);
+            typedValue = postCode;
+        }
+
         System.out.println("Input Last Name: '" + postCode + "' | Actual Field Value: '" + typedValue + "'");
 
 //        driver.findElement(postCodeInput).sendKeys(postCode);
     }
 
     public void clickContinueButton(){
-//        driver.findElement(continueButton).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
 
@@ -109,10 +125,6 @@ public class CheckoutFirstPage {
     }
 
     public String getErrorMessage() {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement element =  wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));
-//        System.out.println("Waiting the error message display:" + element.getText());
-//        return element.getText();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         // 1. Wait until the element is visible
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageElement));

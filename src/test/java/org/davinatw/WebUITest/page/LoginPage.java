@@ -42,14 +42,5 @@ public class LoginPage {
         return driver.getPageSource().contains(errorMessage);
     }
 
-    public boolean isLoginPageDisplayed(){
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        return wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInputText))
-//                .isDisplayed();
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        // Wait until the URL is exactly the base URL
-//        return wait.until(ExpectedConditions.urlToBe("https://www.saucedemo.com/"));
-        return driver.findElement(usernameInputText).isDisplayed();
-    }
 
 }

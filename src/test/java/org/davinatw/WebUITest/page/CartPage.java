@@ -24,7 +24,6 @@ public class CartPage {
     }
 
     public boolean isCartPage(){
-//        return driver.getCurrentUrl().contains("/cart.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             // This waits for the URL to change before returning true to your assertTrue

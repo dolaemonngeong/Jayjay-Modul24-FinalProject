@@ -16,16 +16,15 @@ public class HomePage {
     WebDriver driver;
 
     By headerDisplay = By.xpath("//*[@id=\"header_container\"]/div[1]/div[2]/div");
-
     By burgerMenu = By.id("react-burger-menu-btn");
-    By aboutNavBar = By.id("about_sidebar_link");
+
     private By logOutNavBar = By.xpath("//*[@id=\"logout_sidebar_link\"]");
 
     private By sortDropdown = By.cssSelector("[data-test='product-sort-container']");
 
     private By addToCartButton = By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]");
     private By removeButton = By.xpath("//*[@id=\"remove-sauce-labs-backpack\"]");
-    By cartIcon1 = By.xpath("//*[@id=\"shopping_cart_container\"]/a");
+
     private By cartBadge = By.xpath("//*[@id=\"shopping_cart_container\"]/a/span");
 
     private By inventoryItemNames = By.cssSelector(".inventory_item_name");
@@ -41,33 +40,6 @@ public class HomePage {
 
         return driver.findElement(headerDisplay).isDisplayed();
     }
-//
-//    public void clickAboutNavBar(){
-////        driver.findElement(burgerMenu).click();
-////
-////        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-////
-////        wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
-////        driver.findElement(aboutNavBar).click();
-//        // 1. Click the Burger Menu
-//        driver.findElement(burgerMenu).click();
-//
-//        // 2. Wait for the 'About' link to be visible and clickable
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        WebElement aboutLink = wait.until(ExpectedConditions.elementToBeClickable(aboutNavBar));
-//
-//        try {
-//            // Try standard click first
-//            aboutLink.click();
-//            System.out.println("Clicked about nav bar");
-//        } catch (Exception e) {
-//            // If standard click fails, use JavaScript click (more powerful)
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click();", aboutLink);
-//            System.out.println("not clicked about nav bar");
-//        }
-//    }
-
 
 
     public void selectSortOption(String optionText) {
@@ -128,21 +100,6 @@ public class HomePage {
         // Use the class name for the cart link in SauceDemo
         By cartIcon = By.className("shopping_cart_link");
 
-//        // 1. Check if the element exists in the DOM first to avoid NoSuchElementException
-//        if (!driver.findElements(cartIcon).isEmpty()) {
-//
-//            // 2. Check if it is actually visible to the user
-//            if (driver.findElement(cartIcon).isDisplayed()) {
-//                System.out.println("Cart icon is visible, proceeding to click.");
-//
-//                // 3. It's still best to wait for clickability to handle animations
-//                wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click(); //
-//            } else {
-//                System.out.println("Cart icon exists but is currently hidden.");
-//            }
-//        } else {
-//            System.out.println("Cart icon was not found on the page.");
-//        }
         // 1. Wait for visibility
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(cartIcon));
         System.out.println("Cart icon is visible, proceeding to click.");
