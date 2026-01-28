@@ -50,20 +50,49 @@ public class CartPage {
     }
 
     public void removeItemFromCart(){
-
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem));
+        By removeButtonLocator = By.xpath("//button[text()='Remove']");
 
-        try{
-            element.click();
-        }catch (Exception e){
+        // 1. Get current item count BEFORE clicking
+        int initialCount = driver.findElements(By.className("cart_item")).size();
 
-            System.out.println("Standard click failed to redirect, trying JavaScript click.");
-            // Backup: JavaScript click
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", element);
+        if (initialCount == 0) {
+            System.out.println("Cart is already empty.");
+            return;
         }
+
+        try {
+            // 2. Try Standard Click
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(removeButtonLocator));
+            button.click();
+
+            // 3. CRITICAL: Wait for the item count to actually DROP
+            // This ensures the step doesn't finish until the removal is successful
+            wait.until(ExpectedConditions.numberOfElementsToBeLessThan(By.className("cart_item"), initialCount));
+
+        } catch (Exception e) {
+            System.out.println("Standard remove click failed (Item count didn't drop). Retrying with JavaScript...");
+
+            // 4. Fallback: Force Click with JavaScript
+            WebElement button = driver.findElement(removeButtonLocator);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+
+            // 5. Wait again for the count to drop
+            wait.until(ExpectedConditions.numberOfElementsToBeLessThan(By.className("cart_item"), initialCount));
+        }
+
+//        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(removeButtonFirstItem));
+//
+//        try{
+//            System.out.println("Removing item from cart with standard click...");
+//            element.click();
+//        }catch (Exception e){
+//
+//            System.out.println("Standard click failed to redirect, trying JavaScript click.");
+//            // Backup: JavaScript click
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("arguments[0].click();", element);
+//        }
     }
 
     public void clickContinueShoppingButton(){
