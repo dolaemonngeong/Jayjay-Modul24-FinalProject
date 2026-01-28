@@ -45,12 +45,21 @@ public class CheckoutFirstPage {
         // Verify the input by reading it back from the browser
         String typedValue = element.getAttribute("value");
 
-        // IF the value is empty but we expected text, FORCE it with JavaScript
+        // IF standard typing failed, FORCE it with JavaScript AND trigger events
         if (!firstName.isEmpty() && typedValue.isEmpty()) {
-            System.out.println("Standard typing failed for First Name. Retrying with JavaScript...");
+            System.out.println("Standard typing failed for First Name. Retrying with Event Dispatch...");
+
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].value='" + firstName + "';", element);
-            typedValue = firstName; // Update our local variable
+
+            // CRITICAL UPDATE: We set the value AND fire the events so React 'sees' it
+            js.executeScript(
+                    "arguments[0].value = '" + firstName + "';" +
+                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                    element
+            );
+
+            typedValue = firstName;
         }
 
         System.out.println("Input First Name: '" + firstName + "' | Actual Field Value: '" + typedValue + "'");
@@ -68,9 +77,14 @@ public class CheckoutFirstPage {
         String typedValue = element.getAttribute("value");
 
         if (!lastName.isEmpty() && typedValue.isEmpty()) {
-            System.out.println("Standard typing failed for Last Name. Retrying with JavaScript...");
+            System.out.println("Standard typing failed for Last Name. Retrying with Event Dispatch...");
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].value='" + lastName + "';", element);
+            js.executeScript(
+                    "arguments[0].value = '" + lastName + "';" +
+                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                    element
+            );
             typedValue = lastName;
         }
 
@@ -89,9 +103,14 @@ public class CheckoutFirstPage {
         String typedValue = element.getAttribute("value");
 
         if (!postCode.isEmpty() && typedValue.isEmpty()) {
-            System.out.println("Standard typing failed for Postal Code. Retrying with JavaScript...");
+            System.out.println("Standard typing failed for Postal Code. Retrying with Event Dispatch...");
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].value='" + postCode + "';", element);
+            js.executeScript(
+                    "arguments[0].value = '" + postCode + "';" +
+                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
+                    element
+            );
             typedValue = postCode;
         }
 
