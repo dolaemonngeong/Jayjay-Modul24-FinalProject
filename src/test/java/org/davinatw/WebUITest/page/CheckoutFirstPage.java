@@ -53,10 +53,13 @@ public class CheckoutFirstPage {
 
             // CRITICAL UPDATE: We set the value AND fire the events so React 'sees' it
             js.executeScript(
-                    "arguments[0].value = '" + firstName + "';" +
-                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
-                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
-                    element
+                    "var element = arguments[0];" +
+                            "var value = arguments[1];" +
+                            "var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;" +
+                            "nativeInputValueSetter.call(element, value);" +
+                            "element.dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "element.dispatchEvent(new Event('change', { bubbles: true }));",
+                    element, firstName
             );
 
             typedValue = firstName;
@@ -80,10 +83,13 @@ public class CheckoutFirstPage {
             System.out.println("Standard typing failed for Last Name. Retrying with Event Dispatch...");
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript(
-                    "arguments[0].value = '" + lastName + "';" +
-                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
-                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
-                    element
+                    "var element = arguments[0];" +
+                            "var value = arguments[1];" +
+                            "var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;" +
+                            "nativeInputValueSetter.call(element, value);" +
+                            "element.dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "element.dispatchEvent(new Event('change', { bubbles: true }));",
+                    element, lastName
             );
             typedValue = lastName;
         }
@@ -106,10 +112,13 @@ public class CheckoutFirstPage {
             System.out.println("Standard typing failed for Postal Code. Retrying with Event Dispatch...");
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript(
-                    "arguments[0].value = '" + postCode + "';" +
-                            "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));" +
-                            "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
-                    element
+                    "var element = arguments[0];" +
+                            "var value = arguments[1];" +
+                            "var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;" +
+                            "nativeInputValueSetter.call(element, value);" +
+                            "element.dispatchEvent(new Event('input', { bubbles: true }));" +
+                            "element.dispatchEvent(new Event('change', { bubbles: true }));",
+                    element, postCode
             );
             typedValue = postCode;
         }
