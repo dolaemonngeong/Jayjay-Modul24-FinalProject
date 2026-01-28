@@ -12,7 +12,6 @@ import java.time.Duration;
 public class CheckoutFirstPage {
     WebDriver driver;
 
-    By continueButton = By.id("continue");
 
     By errorMessageElement = By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]");
 
@@ -98,30 +97,18 @@ public class CheckoutFirstPage {
 
         System.out.println("Input Last Name: '" + postCode + "' | Actual Field Value: '" + typedValue + "'");
 
-//        driver.findElement(postCodeInput).sendKeys(postCode);
     }
 
     public void clickContinueButton(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.id("continue")));
 
-        try {
-            // Attempt standard click
-            element.click();
+        // DIRECT FIX: Use JavaScript click immediately.
+        // We skip the standard click because it is silently failing in your CI environment.
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", button);
 
-            // IMMEDIATE CHECK: Did something happen?
-            // We check if the error message appears OR if the URL changes.
-            // If neither happens within 1 second, we assume the click failed.
-            boolean actionTriggered = wait.until(driver ->
-                    driver.getCurrentUrl().contains("checkout-step-two") ||
-                            driver.findElement(errorMessageElement).isDisplayed() // Ensure you have access to errorMessageElement here
-            );
-
-        } catch (Exception e) {
-            System.out.println("Standard click ignored. Forcing JavaScript click.");
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", element);
-        }
+        System.out.println("Executed Forced JavaScript Click on 'Continue' button.");
     }
 
     public String getErrorMessage() {
