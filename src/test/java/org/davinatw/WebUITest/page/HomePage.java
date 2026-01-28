@@ -22,8 +22,8 @@ public class HomePage {
 
     private By sortDropdown = By.cssSelector("[data-test='product-sort-container']");
 
-    private By addToCartButton = By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]");
-    private By removeButton = By.xpath("//*[@id=\"remove-sauce-labs-backpack\"]");
+    private By addToCartButton = By.id("add-to-cart-sauce-labs-backpack");
+    private By removeButton = By.id("remove-sauce-labs-backpack");
 
     private By cartBadge = By.xpath("//*[@id=\"shopping_cart_container\"]/a/span");
 
