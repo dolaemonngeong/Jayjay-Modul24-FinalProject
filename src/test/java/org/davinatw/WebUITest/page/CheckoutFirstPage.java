@@ -39,20 +39,30 @@ public class CheckoutFirstPage {
     }
 
     public void inputFirstName(String firstName){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        try {
-            // Attempt standard interaction
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameInput));
-            element.click();
-            element.clear();
-            element.sendKeys(firstName);
-        } catch (Exception e) {
-            System.out.println("Error entering First Name. Retrying with JavaScript...");
-            // Fallback: Use JavaScript to force the value if standard typing fails
-            WebElement element = driver.findElement(firstNameInput);
-            ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + firstName + "';", element);
-        }
 //        driver.findElement(firstNameInput).sendKeys(firstName);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameInput));
+
+        // Clear the field first to ensure clean input
+        element.clear();
+        element.sendKeys(firstName);
+
+        // Verify the input by reading it back from the browser
+        String typedValue = element.getAttribute("value");
+        System.out.println("Input First Name: '" + firstName + "' | Actual Field Value: '" + typedValue + "'");
+
+//        try {
+//            // Attempt standard interaction
+//            element.click();
+//            element.clear();
+//            element.sendKeys(firstName);
+//        } catch (Exception e) {
+//            System.out.println("Error entering First Name. Retrying with JavaScript...");
+//            // Fallback: Use JavaScript to force the value if standard typing fails
+//            WebElement element = driver.findElement(firstNameInput);
+//            ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + firstName + "';", element);
+//        }
     }
 
     public void inputLastName(String lastName){
